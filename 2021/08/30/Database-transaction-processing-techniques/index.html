@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Xrervip">
+    
+    <title>
+        
+            Database transaction processing techniques |
+        
+        XRER-ARCHIVES
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/bitbug_favicon_48.ico">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                XRER-ARCHIVES
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about/index.html"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about/index.html">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Database transaction processing techniques</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/%E9%A6%99%E8%95%89%E5%90%9Bhd.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Xrervip</span>
+                        
+                            <span class="author-label">哲♂学家</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-08-30 20:57:49
+    </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="第22讲-数据库事务处理技术"><a href="#第22讲-数据库事务处理技术" class="headerlink" title=" 第22讲 数据库事务处理技术"></a> 第22讲 数据库事务处理技术</h2><p>为了更好的性能，我们需要并行处理数据库事务</p>
+<h1 id="什么是并发控制？"><a href="#什么是并发控制？" class="headerlink" title="什么是并发控制？"></a>什么是并发控制？</h1><p>就比如我们买票</p>
+<p>如果大家同时买起点终点、日期、车次相同 的车票，会否买到座位相重复的车票？</p>
+<p>很显然如果服务不能很好的进行并发控制，就会导致一张票被卖了两次，进而出现我们不想要的结果</p>
+<p>常见的三种并发问题：</p>
+<ol>
+<li>丢失修改（同一数据被两个事务同时操作，其中一个事务的结果被另一个事务的结果覆盖）</li>
+<li>不可重复读（第一次读和第二次读结果不一样）</li>
+<li>脏读（读到了已被回滚的数据）</li>
+</ol>
+<h1 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务"></a>什么是事务</h1><p>事务是数据库管理系统提供的控制数据操作的一种手段，通过这一手段，应 用程序员将一系列的数据库操作组合在一起作为一个整体进行操作和控制， 以便数据库管理系统能够提供一致性状态转换的保证。</p>
+<p>一个事务可处理一个数据或一条记录（从帐户A过户5000到帐户B上），也可能处理一批数据或一批记录</p>
+<p>例如：下面的操作即为一个事务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">read(A);</span><br><span class="line">A := A – 5000;</span><br><span class="line">write(A);</span><br><span class="line">read(B);</span><br><span class="line">B := B + 5000;</span><br><span class="line">write(B);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>所以说</p>
+<p><strong>并发控制就是 通过事务微观 交错执行次序 的正确安排， 保证事务宏观上的独立性、完整性和正确性</strong></p>
+<h2 id="事务的ACID特性"><a href="#事务的ACID特性" class="headerlink" title="事务的ACID特性"></a>事务的ACID<strong>特性</strong></h2><ul>
+<li><p><strong>原子性Atomicity :</strong> <strong>DBMS能够保证事务的一组更新操作是原子不可分的，即对 DB而言，要么全做，要么全不做</strong></p>
+</li>
+<li><p><strong>一致性Consistency⭐:</strong> <strong>DBMS保证事务的操作状态是正确的，符合一致性的操作</strong> <strong>规则，不能出现三种典型的不一致性。它是进一步由隔离性来保证的。</strong></p>
+</li>
+<li><p><strong>隔离性Isolation:</strong> <strong>DBMS保证并发执行的多个事务之间互相不受影响。例如两个</strong> <strong>事务T1和T2, 即使并发执行，也相当于或 者先执行了T1,再执行T2;或者先执行了T2,再执行T1。</strong></p>
+</li>
+<li><p><strong>持久性Durability:</strong> <strong>DBMS保证已提交事 务的影响是持久的，被撤销事务的影响是可恢复的。</strong></p>
+</li>
+</ul>
+<h1 id="并发调度"><a href="#并发调度" class="headerlink" title="并发调度"></a>并发调度</h1><h2 id="什么是事务调度-schedule-："><a href="#什么是事务调度-schedule-：" class="headerlink" title="什么是事务调度(schedule)："></a>什么是事务调度(schedule)：</h2><p>一组事务的基本步(读、写、其他控 制操作如加锁、解锁等)的一种执行顺序称为对这组事务的一个调度。 </p>
+<p>并发(或并行)调度：多个事务从宏观上看是并行执行的，但其微观上的基本 操作(读、写)则是交叉执行的。</p>
+<h2 id="事务调度之正确性"><a href="#事务调度之正确性" class="headerlink" title="事务调度之正确性"></a>事务调度之正确性</h2><p>当且仅当在这个并发调度下所得到的新数据库结果与分别串行地运行这些事务所得的新数据库完全一致，则说调度是正确的。</p>
+<h2 id="事务调度之可串行性"><a href="#事务调度之可串行性" class="headerlink" title="事务调度之可串行性"></a>事务调度之<strong>可串行性</strong></h2><p>如果不管数据库初始状态如何，一个调度对数据库状态的影响都和某个<strong>串行调度</strong>相同，则我们说这个调度是可串行化的 (Serializable)或具有可串行性(Serializability)。</p>
+<p><img src="https://img2020.cnblogs.com/blog/2233855/202101/2233855-20210129094641467-649613231.png"></p>
+<ul>
+<li>可串行化调度一定是正确的并行调度，但正确的并行调度，却未必都是可串行化的调度</li>
+<li>并行调度的正确性是指内容上结果正确性，而可串行性是指形式上结果正确性，便于操作。</li>
+<li>可串行化的等效串行序列不一定唯一</li>
+</ul>
+<h2 id="事务调度之冲突"><a href="#事务调度之冲突" class="headerlink" title="事务调度之冲突"></a>事务调度之冲突</h2><p>调度中一对连续的动作，它们满足：如果它们的顺序交换，那么涉及的事务中至少有一个事务的行为会改变。</p>
+<p>有冲突的两个操作是不能交换次序的，没有冲突的两个事务是可交换的</p>
+<ul>
+<li>同一个事务的任何两个操作都是冲突的</li>
+</ul>
+<ul>
+<li>  不同事务对同一元素的两个写操作是冲突的</li>
+<li>  不同事务对同一元素的一读一写操作是冲突的</li>
+</ul>
+<h2 id="事务调度之冲突可串行性"><a href="#事务调度之冲突可串行性" class="headerlink" title="事务调度之冲突可串行性"></a>事务调度之冲突可串行性</h2><p>一个调度，如果通过交换相邻两个无冲突的操作能够转换到某一个串行的调度，则称此调度为冲突可串行化的调度。    </p>
+<ul>
+<li>  冲突可串行性是比可串行性要严格的概念</li>
+<li>  满足冲突可串行性，一定满足可串行性；反之不然</li>
+</ul>
+<h2 id="冲突可串行性判别算法"><a href="#冲突可串行性判别算法" class="headerlink" title="冲突可串行性判别算法"></a>冲突可串行性判别算法</h2><ol>
+<li><p>构造一个前驱图(有向图)</p>
+</li>
+<li><p>结点是每一个事务Ti。如果Ti的一个操作与Tj的一个操作发生冲突，且Ti在 Tj前执行，则绘制一条边，由Ti指向Tj, 表征Ti要在Tj前执行。</p>
+</li>
+<li><p>测试检查: 如果此有向图没有环，则是冲突可串行化的</p>
+</li>
+</ol>
+<p>一道习题：<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/yueguanghaidao/article/details/6761540" >冲突可串行的判定<i class="fas fa-external-link-alt"></i></a></p>
+<h1 id="基于封锁的并发控制方法"><a href="#基于封锁的并发控制方法" class="headerlink" title="基于封锁的并发控制方法"></a><strong>基于封锁的并发控制方法</strong></h1><h2 id="锁的概念"><a href="#锁的概念" class="headerlink" title="锁的概念"></a>锁的概念</h2><p>锁是控制并发的一种手段，<strong>是数据库元素上的并发控制标志</strong></p>
+<h2 id="关于锁的基本知识点"><a href="#关于锁的基本知识点" class="headerlink" title="关于锁的基本知识点"></a>关于锁的基本知识点</h2><ul>
+<li>  每一数据元素都有唯一的锁</li>
+<li>  每一事务读写数据元素前，要获得锁</li>
+<li>  如果被其他事务持有该元素的锁，则要等待</li>
+<li>  事务处理完成后要释放锁</li>
+<li>  锁本身并不能保证冲突可串行性，只是为调度提供了控制的手段，具体如何使用锁需要说明——不同协议</li>
+</ul>
+<h2 id="封锁协议之锁的类型"><a href="#封锁协议之锁的类型" class="headerlink" title="封锁协议之锁的类型"></a>封锁协议之锁的类型</h2><h3 id="排他锁X"><a href="#排他锁X" class="headerlink" title="排他锁X"></a>排他锁X</h3><p>只有一个事务能读和写，其他任何事务都不能读、写</p>
+<h3 id="共享锁S"><a href="#共享锁S" class="headerlink" title="共享锁S"></a>共享锁S</h3><p>所有事务都可以读，但任何事务都不能写</p>
+<h3 id="更新锁U"><a href="#更新锁U" class="headerlink" title="更新锁U"></a>更新锁U</h3><p>初始读，以后可以升级为写</p>
+<h3 id="增量锁I"><a href="#增量锁I" class="headerlink" title="增量锁I"></a>增量锁I</h3><p>区分增量更新和其他类型的更新</p>
+<h2 id="封锁协议0级到3级协议（加锁的时机）"><a href="#封锁协议0级到3级协议（加锁的时机）" class="headerlink" title="封锁协议0级到3级协议（加锁的时机）"></a>封锁协议0级到3级协议（加锁的时机）</h2><ul>
+<li> <strong>0级协议</strong>  有写要求的数据对象A加排他锁，不再访 问后即刻解锁。可防止丢失修改，但允许 脏读，允许重复读错误</li>
+<li> <strong>1级协议</strong> 有写要求的数据对象A加排他锁，事务提 交时刻解锁。可防止丢失修改，可恢复,防止脏读，允许重复读错误</li>
+<li> <strong>2级协议</strong>  有写要求的数据对象A加排他锁，事务提 交时刻解锁。有读要求的数据对象B加共 享锁，不再访问后即刻解锁。可防止丢失 修改，防止脏读，防止重复读错误，但是不能解决幻读</li>
+<li> <strong>3级协议</strong> 有写要求的数据对象A加排他锁，事务提 交时刻解锁。有读要求的数据对象B加共 享锁，事务提交时刻解锁。防止所有不一致性</li>
+</ul>
+<h2 id="脏读、不可重复读、幻读："><a href="#脏读、不可重复读、幻读：" class="headerlink" title="脏读、不可重复读、幻读："></a>脏读、不可重复读、幻读：</h2><p> <strong>脏读：</strong></p>
+<p>所谓的脏读，其实就是读到了别的事务回滚前的脏数据。比如事务B执行过程中修改了数据X，在未提交前，事务A读取了X，而事务B却回滚了，这样事务A就形成了脏读。</p>
+<p>也就是说，当前事务读到的数据是别的事务想要修改成为的但是没有修改成功的数据。</p>
+<p> <strong>不可重复读：</strong></p>
+<p>事务A首先读取了一条数据，然后执行逻辑的时候，事务B将这条数据改变了，然后事务A再次读取的时候，发现数据不匹配了，就是所谓的不可重复读了。</p>
+<p>也就是说，当前事务先进行了一次数据读取，然后再次读取到的数据是别的事务修改成功的数据，导致两次读取到的数据不匹配，也就照应了不可重复读的语义。</p>
+<p> <strong>幻读：</strong></p>
+<p>事务A首先根据条件索引得到N条数据，然后事务B改变了这N条数据之外的M条或者增添了M条符合事务A搜索条件的数据，导致事务A再次搜索发现有N+M条数据了，就产生了幻读。</p>
+<p>也就是说，当前事务读第一次取到的数据比后来读取到数据条目少。</p>
+<h2 id="SQL之隔离性级别"><a href="#SQL之隔离性级别" class="headerlink" title="SQL之隔离性级别"></a>SQL之隔离性级别</h2><p><strong>读未提交(read uncommitted) —相当于0级协议</strong> </p>
+<p><strong>读已提交</strong> <strong>(read</strong> committed) <strong>—相当于1级协议</strong> </p>
+<p><strong>可重复读(repeatable read)—相当于2级协议</strong></p>
+<p><strong>可串行化(serializable) —相当于3级协议</strong> </p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.xrervip.tk/2021/08/24/Serializable/" >详细说明<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="两段封锁协议"><a href="#两段封锁协议" class="headerlink" title="两段封锁协议"></a>两段封锁协议</h2><p>是一种基于锁的并发控制方法。读写数据之前，每个事务中所有封锁请求先于任何一个解锁请求。</p>
+<p>两阶段：加锁段和解锁段。加锁段不能有解锁操作，解锁段不能有加锁操作。</p>
+<p> <strong>作用</strong></p>
+<p>两段封锁协议是可以保证冲突可串行性的。</p>
+<p>注意：两段封锁协议是可能产生死锁的协议</p>
+<h2 id="基于时间戳的并发控制方法"><a href="#基于时间戳的并发控制方法" class="headerlink" title="基于时间戳的并发控制方法"></a>基于时间戳的并发控制方法</h2><p>基于时间戳的并发控制方法：借助于时间戳，强制使一组并发事务的交叉执行，等价于一个特定顺序的串行执行</p>
+<p>具体操作就是<strong>执行时判断冲突</strong>，如无冲突，予以执行；如有冲突，则撤销事务，并 重启该事务，此时该事务获得了一个更大的时间戳， 表明是后执行的事务。</p>
+<p><strong>有哪些冲突：</strong></p>
+<ul>
+<li><p><strong>读-读无冲突；</strong></p>
+</li>
+<li><p><strong>读-写或写-读冲突；</strong></p>
+</li>
+<li><p><strong>写-写冲突</strong></p>
+</li>
+</ul>
+<p><strong>具体规则：</strong></p>
+<p>对DB中的每个数据元素x，系统保留其上的最大时间戳</p>
+<p><strong>RT(x):</strong> <strong>即R-timestamp(x) 读过该数据事务中最大的时间戳，即最后读x的事务的时间戳。</strong></p>
+<p><strong>WT(x):</strong> <strong>即W-timestamp(x)写过该数据事务中最大的时间戳，即最后写x的事务的时间戳。</strong></p>
+<p><strong>事务的时间戳</strong></p>
+<p><strong>TS(T) 即TimeStamp</strong></p>
+<p><strong>读-写并发</strong>：(读-写、写-读)<br>若T事务读x，则将T的时间戳TS与WT(x)比较:<br>若TS大(T后进行)，则允许T操作，并且更改RT(x)为max{RT(x),TS}；<br>否则，有冲突，撤回T，重启T。<br>若T事务写x，则将T的时间戳TS与RT(x)比较：<br>若TS大(T后进行)，则允许T操作，并且更改WT(x)为max{WT(x),TS}；<br>否则，有冲突，撤回T重做。</p>
+<p><strong>写-写并发</strong> </p>
+<p>若T事务写x，则将T的时间戳TS与WT(x)比较：<br>若TS大，则允许T写，并且更改WT(x)为T的时间戳；<br>否则有冲突，T撤回重做。</p>
+<p>前述规则可以解决事务T<strong>过晚的读</strong>和<strong>过晚的写</strong></p>
+<p>但是这两种“事实上 不可实现的”冲 突可以避免了，实用性很有限</p>
+<p>因此引入<strong>另一种调度规则</strong></p>
+<p>对DB中的每个数据元素x，系统保留其上的最大时间戳</p>
+<p>RT(x): 即R-timestamp(x) </p>
+<p>  读过该数据事务中最大的时间戳，即最后读x的事务的时间戳。</p>
+<p>WT(x): 即W-timestamp(x) </p>
+<p>  写过该数据事务中最大的时间戳，即最后写x的事务的时间戳。</p>
+<p>C(x): x的提交位。 </p>
+<p>​    该位为真，当且仅当最近写x的事务已经提交。</p>
+<p>C(x)的目的是避免出现事务读另一事务U所写数据然后U终止或者被撤销这样的情况。</p>
+<p><strong>对来自事务T的读写请求，调度器可以：</strong></p>
+<ul>
+<li><p><strong>同意请求</strong></p>
+</li>
+<li><p>撤销/终止T，并重启具有新时间戳的T(终止+重启，被称回滚)</p>
+</li>
+<li><p>推迟T，并在以后决定是终止T还是同意请求(如果请求是读，且此读可能是 脏的)</p>
+</li>
+</ul>
+<p><strong>调度规则</strong></p>
+<ul>
+<li><strong>假设调度器收到请求rT(X)</strong></li>
+</ul>
+<p>(1)如果TS(T)&gt;=WT(x), 此读是事实上可实现的</p>
+<p> 如C(x)为真，    同意请求。如果TS(T)&gt;RT(x), 置RT(x):=TS(T); 否则不改变RT(x).</p>
+<p> 如C(x)为假，推迟Ｔ直到C(x)为真或写x的事务终止。</p>
+<p>(2)如果TS(T)&lt;WT(x), 此读是事实上不可实现的</p>
+<p>回滚T(终止并重启T)；(过晚的读)</p>
+<ul>
+<li><strong>假设调度器收到请求wT(X)</strong></li>
+</ul>
+<p>(1)如果TS(T)&gt;=RT(x), 且TS(T)&gt;=WT(x), 此写是事实上是可实现的</p>
+<p>为x写入新值；置WT(x):=TS(T)；置C(x):=false.</p>
+<p>(2)如果TS(T)&gt;=RT(x),但是TS(T)&lt;WT(x)，此写是事实上可实现的。但x 已经有一个更晚的值</p>
+<p>如果C(x)为真，那么前一个x的写已提交；则忽略T的写；继续进行。(托马斯写规则)<br>如果C(x)为假，则我们需推迟T，直到C(x)为真或写x的事务终止。</p>
+<p>(3)如果TS(T)&lt;RT(x), 此写是事实上不可实现的<br>T必须回滚。(过晚的写)</p>
+<ul>
+<li><strong>假设调度器收到提交T的请求。</strong></li>
+</ul>
+<p>它必须找到T所写的所有数据库元素x, 并置C(x):=true。</p>
+<p>如果有任何等待x被提交的事务，这些事务就被允许继续进行。</p>
+<ul>
+<li><strong>假设调度器收到终止T的请求</strong></li>
+</ul>
+<p>像前述步骤一样确定回滚T。</p>
+<p>那么任何等待T所写元素x的事务必须重新尝试 读或写，看这一动作现在T的写被终止后是否合法。</p>
+<p><strong>基于时间戳的并发控制的思想</strong></p>
+<p> 事务在启动时刻被赋予唯一的时间戳，以示其启动顺序。<br> 为每一数据库元素保存读时间戳和写时间戳，以记录读或写该数据元素的最 后的事务。<br> 通过在事务读写数据时判断是否存在冲突(读写冲突、写读冲突、写写冲突) 来强制事务以可串行化的方式执行。</p>
+<h2 id="基于有效性确认的并发控制方法"><a href="#基于有效性确认的并发控制方法" class="headerlink" title="基于有效性确认的并发控制方法"></a>基于有效性确认的并发控制方法</h2><p><strong>基于有效性确认的并发控制的思想</strong></p>
+<p> 事务在启动时刻被赋予唯一的时间戳，以示其启动顺序。<br> 为每一活跃事务保存其读写数据的集合，RS(T)：事务T读数据的集合； WS(T)：事务T写数据的集合。<br> 通过对多个事务的读写集合，判断是否有冲突(存在事实上不可实现的行为)，即有效性确认，来完成事务的提交与回滚，强制事务以可串行化的方式执行</p>
+<p><strong>基于有效性确认的调度器</strong></p>
+<p> 事务在启动时刻被赋予唯一的时间戳，以示其启动顺序。<br> 每一事务读写数据的集合</p>
+<ul>
+<li><p>RS(T)：事务T读数据的集合；</p>
+</li>
+<li><p>WS(T)：事务T写数据的集合。</p>
+</li>
+</ul>
+<p><strong>事务分三个阶段进行</strong> </p>
+<ol>
+<li><strong>读阶段</strong>。事务从数据库中读取读集合中的所有元素。事务还在其局部地址空间计算它将要写的所有值；</li>
+<li><strong>有效性确认阶段</strong>。调度器通过比较该事务与其它事务的读写集合<br>  来确认该事务的有效性。</li>
+<li><strong>写阶段</strong>。事务往数据库中写入其写集合中元素的值。<br>   每个成功确认的事务是在其有效性确认的瞬间执行的。<br>   并发事务串行的顺序即事务有效性确认的顺序。</li>
+</ol>
+<p><strong>调度器维护三个集合</strong></p>
+<ul>
+<li>START集合。已经开始但尚未完成有效性确认的事务集合。对此<br>集合中的事务，调度器维护START(T)，即事务T开始的时间。</li>
+<li>VAL集合。已经确认有效性但尚未完成第3阶段写的事务。对此集<br>合中的事务，调度器维护START(T)和VAL(T)，即T确认的时间。</li>
+<li>FIN集合。已经完成第3阶段的事务。对这样的事务T,START(T), VAL(T)和FIN(T)，即T完成的时间。</li>
+</ul>
+<p><strong>有效性确认规则</strong></p>
+<p>-(1)对于所有已经过有效性确认, 且在T开始前没有完成的U（<strong>U已经过有效性确认</strong>）, 即对于满足 FIN(U)&gt;START(T)（<strong>U在T开始前没有完成。</strong>）的U,检测:</p>
+<p>RS(T) ∩WS(U)是否为空。 </p>
+<p>若为空，则确认。否则，不予确认。</p>
+<p>其含义是：<strong>如果一个较早的事务U现在正在写入T应该</strong> <strong>读过的某些对象，则T的有效性不能确认</strong></p>
+<p>(2)对于所有已经过有效性确认，且在T有效性确认前没有完成的U（<strong>U有效性已经成功确认</strong>）, 即对于 满足FIN(U)&gt;VAL(T)的U（<strong>U在T进入其有效性确认阶段以前没有完成</strong>）, 检测：WS(T) ∩WS(U)是否为空。 </p>
+<p>若为空，则确认。否则，不予确认。</p>
+<p>其含义是：<strong>如果T在有效性确认后可能比一个较早的事 务先写某个对象，则T的有效性不能确认</strong></p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/08/28/4399download/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">下载 4399 FLASH 游戏</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script 
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script >
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'e7ea2de728f2cb8b2a9e',
+                    clientSecret: '254e8482cd3fc70d610ce4c37459b890fe738b77',
+                    repo: 'MyBlogComment',
+                    owner: 'xrervip',
+                    admin: ['xrervip'],
+                    id: __gitalk__pathname,
+                    language: 'zh-cn'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('false') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Xrervip</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">本站不欢迎原批</a></div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC22%E8%AE%B2-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF"><span class="nav-number">1.</span> <span class="nav-text"> 第22讲 数据库事务处理技术</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">什么是并发控制？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1"><span class="nav-number"></span> <span class="nav-text">什么是事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84ACID%E7%89%B9%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">事务的ACID特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E8%B0%83%E5%BA%A6"><span class="nav-number"></span> <span class="nav-text">并发调度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6-schedule-%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">什么是事务调度(schedule)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E4%B9%8B%E6%AD%A3%E7%A1%AE%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">事务调度之正确性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E4%B9%8B%E5%8F%AF%E4%B8%B2%E8%A1%8C%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">事务调度之可串行性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E4%B9%8B%E5%86%B2%E7%AA%81"><span class="nav-number">4.</span> <span class="nav-text">事务调度之冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E8%B0%83%E5%BA%A6%E4%B9%8B%E5%86%B2%E7%AA%81%E5%8F%AF%E4%B8%B2%E8%A1%8C%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">事务调度之冲突可串行性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%B2%E7%AA%81%E5%8F%AF%E4%B8%B2%E8%A1%8C%E6%80%A7%E5%88%A4%E5%88%AB%E7%AE%97%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">冲突可串行性判别算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%B0%81%E9%94%81%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">基于封锁的并发控制方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">锁的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E9%94%81%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">关于锁的基本知识点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE%E4%B9%8B%E9%94%81%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">封锁协议之锁的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E4%BB%96%E9%94%81X"><span class="nav-number">3.1.</span> <span class="nav-text">排他锁X</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E9%94%81S"><span class="nav-number">3.2.</span> <span class="nav-text">共享锁S</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E9%94%81U"><span class="nav-number">3.3.</span> <span class="nav-text">更新锁U</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E9%94%81I"><span class="nav-number">3.4.</span> <span class="nav-text">增量锁I</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE0%E7%BA%A7%E5%88%B03%E7%BA%A7%E5%8D%8F%E8%AE%AE%EF%BC%88%E5%8A%A0%E9%94%81%E7%9A%84%E6%97%B6%E6%9C%BA%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">封锁协议0级到3级协议（加锁的时机）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%8F%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">脏读、不可重复读、幻读：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E4%B9%8B%E9%9A%94%E7%A6%BB%E6%80%A7%E7%BA%A7%E5%88%AB"><span class="nav-number">6.</span> <span class="nav-text">SQL之隔离性级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E6%AE%B5%E5%B0%81%E9%94%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">7.</span> <span class="nav-text">两段封锁协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E6%88%B3%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">基于时间戳的并发控制方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%89%E6%95%88%E6%80%A7%E7%A1%AE%E8%AE%A4%E7%9A%84%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%E6%96%B9%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">基于有效性确认的并发控制方法</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
