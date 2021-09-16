@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Xrervip">
+    
+    <title>
+        
+            数据库事务处理技术-故障恢复 |
+        
+        XRER-ARCHIVES
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/bitbug_favicon_48.ico">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                XRER-ARCHIVES
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/index.html"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about/index.html"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/index.html">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about/index.html">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">数据库事务处理技术-故障恢复</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/%E9%A6%99%E8%95%89%E5%90%9Bhd.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Xrervip</span>
+                        
+                            <span class="author-label">哲♂学家</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-09-01 14:39:44
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="第23讲-数据库事务处理技术-故障恢复"><a href="#第23讲-数据库事务处理技术-故障恢复" class="headerlink" title="第23讲 数据库事务处理技术-故障恢复"></a>第23讲 数据库事务处理技术-故障恢复</h2><h1 id="数据库的故障类型及其影响"><a href="#数据库的故障类型及其影响" class="headerlink" title="数据库的故障类型及其影响"></a>数据库的故障类型及其影响</h1><p><strong>典型的数据库故障</strong></p>
+<ul>
+<li><p><strong>事务故障</strong><br>某一个程序(事务)自身运行错误所引起的故障<br>影响该程序(事务)本身</p>
+</li>
+<li><p><strong>系统故障</strong></p>
+<p>由于掉电、非正常关机等所引起的故障<br>影响正在运行的事务以及数据库缓冲区, 数据库缓冲区将涉及正在 运行和已经运行的事务</p>
+</li>
+<li><p><strong>介质故障</strong></p>
+<p>由于介质损坏等所引起的 故障<br>影响是全面的，既影响内存中的数据, 又影响介质 中存储的数据</p>
+</li>
+</ul>
+<h1 id="数据库故障恢复的宏观思路"><a href="#数据库故障恢复的宏观思路" class="headerlink" title="数据库故障恢复的宏观思路"></a>数据库故障恢复的宏观思路</h1><p> 三种类型故障：事务故障、系统故障和介质故障<br> 三种恢复手段:    事务的撤消与重做, 运行日志和备份<br> 两个重要时刻：检查点和转储点</p>
+<h2 id="每个事务都会读写某些元素"><a href="#每个事务都会读写某些元素" class="headerlink" title="每个事务都会读写某些元素"></a>每个事务都会读写某些元素</h2><p>READ(X,t):将元素X读到事务的局部变量t中；</p>
+<p>WRITE(X,t):将事务局部变量t写回元素X；</p>
+<p>INPUT(X):将元素X从磁盘读入到内存缓冲区中；</p>
+<p>OUTPUT(X):将元素X写回到磁盘中。</p>
+<h2 id="每个事务都以提交或者撤销结束"><a href="#每个事务都以提交或者撤销结束" class="headerlink" title="每个事务都以提交或者撤销结束"></a>每个事务都以提交或者撤销结束</h2><p>COMMIT：事务提交</p>
+<p>ABORT：事务撤销</p>
+<h2 id="DBMS在故障发生时需要保障事务"><a href="#DBMS在故障发生时需要保障事务" class="headerlink" title="DBMS在故障发生时需要保障事务"></a>DBMS在故障发生时需要保障事务</h2><ol>
+<li><p>持久性</p>
+<ul>
+<li>  已提交的事务——缓冲区内容保证写回磁盘</li>
+<li>  未提交的事务——缓冲区内容不能影响磁盘</li>
+</ul>
+</li>
+<li><p>原子性</p>
+<p>事务的所有操作，要么全都执行，要么全不执行。</p>
+</li>
+</ol>
+<p>注意：缓冲区内容和磁盘内容并不是时刻保持一致的。</p>
+<h2 id="不同缓冲区策略"><a href="#不同缓冲区策略" class="headerlink" title="不同缓冲区策略"></a>不同缓冲区策略</h2><p>Force:内存中的数据最晚在commit的时候写入磁盘。</p>
+<p>No steal:不允许在事务commit之前把内存中的数据写入磁盘。</p>
+<p>No force:内存中的数据可以一直保留，在commit之后过一段时间再写入磁盘。此时在系统崩溃的时候可能还没写入到磁盘，需要Redo,此方式较为灵活。</p>
+<p>Steal:允许事务commit之前把内存中的数据写入磁盘，此时若系统在commit之前崩溃时，已经有数据写入到磁盘了，要恢复到崩溃前的状态，需要Undo,此方式同样较为灵活。</p>
+<p><strong>当前最常用：Steal + No force</strong></p>
+<h1 id="什么是日志？"><a href="#什么是日志？" class="headerlink" title="什么是日志？"></a>什么是日志？</h1><p>一个包含日志记录的、只能追加的顺序文件, 不同事务的日志记录交错存储，按发生时间存储。</p>
+<p>发生系统故障时，使用日志进行恢复:</p>
+<p>故障时已提交的事务，重做(Redo)</p>
+<p>故障时未提交的事务，撤销(Undo)</p>
+<h1 id="Undo型日志及其故障恢复"><a href="#Undo型日志及其故障恢复" class="headerlink" title="Undo型日志及其故障恢复"></a>Undo型日志及其故障恢复</h1><p>对于任一事务T，按下列顺序向磁盘输出T的日志信息：<br> 首先，&lt;T, X, v&gt;被写到日志中<br> 其次，OUTPUT(X)<br> 最后，<COMMIT T>或<ABORT T>被写到日志中<br> 注意：Undo型日志仅保留旧值。&lt;T, X, v&gt;，v为X原来的值(X的旧值)<br> Undo型日志：“将事务改变的所有数据写到磁盘前不能提交该事务”</p>
+<p><strong>利用undo型日志进行恢复</strong><br>首先，确定每一个事务是否已完成?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;START T&gt;….&lt;COMMIT T&gt;….	= yes</span><br><span class="line">&lt;START T&gt;….&lt;ABORT T&gt;…….	= no(已结束，但未完成)</span><br><span class="line">&lt;START T&gt;………………………	= no</span><br><span class="line">然后，从日志的尾部开始按日志记录的反序，处理每一日志 记录，撤销未完成事务的所有修改</span><br><span class="line">&lt;COMMIT T&gt;:	标记T已完成</span><br><span class="line">&lt;ABORT T&gt;: 标记T已结束但未完成</span><br><span class="line">&lt;T,X,v&gt;: 如果T未完成，则将X=v写回磁盘；否则跳过；</span><br><span class="line">&lt;START T&gt;: 跳过</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>检查点及其使用</strong></p>
+<ul>
+<li><p><strong>静止检查点：</strong></p>
+<p>周期性地对日志设置检查点<br>停止接受新的事务, 等到所有当前活跃事务提交或终止，并在日志中 写入了COMMIT或ABORT记录后<br>将日志刷新到磁盘，写入日志记录<CKPT>，并再次刷新日志</p>
+</li>
+<li><p><strong>非静止检查点</strong><br>在设置检查点时不必关闭系统，允许新事务进入<br>写入一条&lt;START CKPT(T1,…,Tk)&gt;<br>其中T1,…,Tk 是所有活跃的未结束的事务<br>继续正常的操作，直到T1,…,Tk都完成时，写入<END CKPT></p>
+</li>
+</ul>
+<p>故障需恢复到所 遇到的第一个检查点</p>
+<h1 id="Redo型日志及其故障恢复"><a href="#Redo型日志及其故障恢复" class="headerlink" title="Redo型日志及其故障恢复"></a>Redo型日志及其故障恢复</h1><p>Redo型日志<br>Undo型日志的问题“将事务改变的所有数据写到磁盘前不能 提交该事务”—如何解决?<br>对于任一事务T，按下列顺序向磁盘输出T的日志信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">首先，&lt;T, X, v&gt;被写到日志中</span><br><span class="line">其次，&lt;COMMIT T&gt;被写到日志中</span><br><span class="line">最后，OUTPUT(X)</span><br><span class="line">注意：redo型日志保留新值。&lt;T, X, v&gt;，v为X更新后的值(X的新值)</span><br><span class="line">注意：与undo型的差别，在后两步，先写提交记录后输出，还是先输</span><br><span class="line">出，再写提交记录。</span><br></pre></td></tr></table></figure>
+<p><strong>利用redo日志进行恢复</strong><br>确定每一个事务是否已完成?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;START T&gt;….&lt;COMMIT T&gt;…. =yes</span><br><span class="line"></span><br><span class="line">&lt;START T&gt;….&lt;ABORT T&gt;…….=no(已结束，但未完成)</span><br><span class="line">&lt;START T&gt;………………………	= no</span><br></pre></td></tr></table></figure>
+<p>从日志的起始位置开始按日志记录的正序处理每一日志记录，重做已提交事务的所有修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;COMMIT T&gt;:	标记T已完成</span><br><span class="line">&lt;ABORT T&gt;:标记T已结束但未完成</span><br><span class="line">&lt;T,X,v&gt;: 如果T已完成，则将X=v写回磁盘；否则跳过；</span><br><span class="line">&lt;START T&gt;: 跳过</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>检查点</strong></p>
+<ul>
+<li>非静止检查点<br>在进行检查点设置时不必关闭系统，允许新事务进入<br>写入一条&lt;START CKPT(T1,…,Tk)&gt;<br>其中T1,…,Tk 是所有活跃的未结束的事务<br>将所有已提交的事务写回磁盘，<br>继续正常的操作，直到T1,…,Tk都完成时，写入<END CKPT></li>
+</ul>
+<h1 id="Undo-Redo结合型日志及其故障恢复"><a href="#Undo-Redo结合型日志及其故障恢复" class="headerlink" title="Undo/Redo结合型日志及其故障恢复"></a>Undo/Redo结合型日志及其故障恢复</h1><p><strong>Redo型日志与Undo型日志的比较</strong></p>
+<p><strong>Undo型日志:</strong></p>
+<ul>
+<li><p>OUTPUT必须先做。</p>
+</li>
+<li><p>如果<COMMIT T>可见, T确定地已将所有其数据写回磁盘，因此不必重做 –– 但可能引起性能下降(因可能频繁地写磁盘)</p>
+</li>
+</ul>
+<p><strong>Redo型日志：</strong></p>
+<ul>
+<li><p>OUTPUT必须后做。</p>
+</li>
+<li><p>如果<COMMIT T>不可见, T确定地没有将其任何数据写回到磁盘， 因此无需撤销 –– 但灵活性差(数据必须在Commit后才可见)</p>
+</li>
+</ul>
+<p>如更喜欢灵活性 – 需要采用Undo/Redo型日志</p>
+<p><strong>Undo/Redo型日志</strong><br>对于任一事务T，按下列顺序向磁盘输出T的日志信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- 第(1)步，&lt;T, X, u, v&gt;被写到日志中</span><br><span class="line">- 第(2)or(3)步，&lt;COMMIT T&gt;被写到日志中</span><br><span class="line">- 第(3)or(2)步，OUTPUT(X)</span><br><span class="line">- 注意：undo/redo型日志既保留新值v，也保留旧值u。</span><br></pre></td></tr></table></figure>
+<p>注意：与undo型和redo型的差别，在后两步。</p>
+<p>Redo型是先写提交记录 后输出；</p>
+<p>undo型是先输出，再写提交记录；</p>
+<p>undo/redo型则无所谓谁先谁 后，只要保证&lt;T,X,u,v&gt;被先于OUTPUT写完即可。</p>
+<p><strong>利用undo/Redo型日志进行恢复</strong></p>
+<p>首先，确定每一个事务是否已完成?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;START T&gt;….&lt;COMMIT T&gt;….	= yes</span><br><span class="line">&lt;START T&gt;….&lt;ABORT T&gt;……. = no(已结束，但未完成)</span><br><span class="line">&lt;START T&gt;………………………	= no</span><br></pre></td></tr></table></figure>
+<p>自前向后地，按日志记录的正序，重做所有已提交的事务；</p>
+<p>自后向前，按日志记录的反序，撤销所有未完成事务的所有修改。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;COMMIT T&gt;:	标记T已完成</span><br><span class="line">&lt;ABORT T&gt;:标记T已结束但未完成</span><br><span class="line">&lt;T,X,u,v&gt;: 如果T未完成，则将X=u写回磁盘；否则将x=v写回磁盘；</span><br><span class="line">&lt;START T&gt;: 跳过</span><br></pre></td></tr></table></figure>
+
+
+<p>总而言之：自后向前地撤销所有未提交的事务；自前向后地重做所有已提交的事务；先做&lt;撤销&gt;，再做&lt;重做&gt;</p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/08/30/Database-transaction-processing-techniques/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">数据库事务处理技术</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Xrervip</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">本站不欢迎原批</a></div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC23%E8%AE%B2-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E5%A4%84%E7%90%86%E6%8A%80%E6%9C%AF-%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="nav-number">1.</span> <span class="nav-text">第23讲 数据库事务处理技术-故障恢复</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%85%E9%9A%9C%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%BD%B1%E5%93%8D"><span class="nav-number"></span> <span class="nav-text">数据库的故障类型及其影响</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D%E7%9A%84%E5%AE%8F%E8%A7%82%E6%80%9D%E8%B7%AF"><span class="nav-number"></span> <span class="nav-text">数据库故障恢复的宏观思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E4%BA%8B%E5%8A%A1%E9%83%BD%E4%BC%9A%E8%AF%BB%E5%86%99%E6%9F%90%E4%BA%9B%E5%85%83%E7%B4%A0"><span class="nav-number">1.</span> <span class="nav-text">每个事务都会读写某些元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E4%BA%8B%E5%8A%A1%E9%83%BD%E4%BB%A5%E6%8F%90%E4%BA%A4%E6%88%96%E8%80%85%E6%92%A4%E9%94%80%E7%BB%93%E6%9D%9F"><span class="nav-number">2.</span> <span class="nav-text">每个事务都以提交或者撤销结束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DBMS%E5%9C%A8%E6%95%85%E9%9A%9C%E5%8F%91%E7%94%9F%E6%97%B6%E9%9C%80%E8%A6%81%E4%BF%9D%E9%9A%9C%E4%BA%8B%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">DBMS在故障发生时需要保障事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E7%BC%93%E5%86%B2%E5%8C%BA%E7%AD%96%E7%95%A5"><span class="nav-number">4.</span> <span class="nav-text">不同缓冲区策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%97%A5%E5%BF%97%EF%BC%9F"><span class="nav-number"></span> <span class="nav-text">什么是日志？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Undo%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="nav-number"></span> <span class="nav-text">Undo型日志及其故障恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redo%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="nav-number"></span> <span class="nav-text">Redo型日志及其故障恢复</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Undo-Redo%E7%BB%93%E5%90%88%E5%9E%8B%E6%97%A5%E5%BF%97%E5%8F%8A%E5%85%B6%E6%95%85%E9%9A%9C%E6%81%A2%E5%A4%8D"><span class="nav-number"></span> <span class="nav-text">Undo&#x2F;Redo结合型日志及其故障恢复</span></a>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
