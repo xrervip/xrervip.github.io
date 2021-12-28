@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="Hexo Theme Keep">
     <meta name="description" content="Hexo Theme Keep">
-    <meta name="author" content="Xrervip">
+    <meta name="author" content="Fzquantum">
     
     <title>
         
-        XRER-ARCHIVES
+        FZQuantum-Archives
     </title>
     
 <link rel="stylesheet" href="/css/style.css">
@@ -20,8 +20,8 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -50,7 +50,7 @@
         <div class="left">
             
             <a class="logo-title" href="/">
-                XRER-ARCHIVES
+                FZQuantum-Archives
             </a>
         </div>
 
@@ -62,7 +62,7 @@
                             <a class=""
                                href="/index.html"
                             >
-                                首页
+                                HOME
                             </a>
                         </li>
                     
@@ -70,7 +70,15 @@
                             <a class=""
                                href="/archives"
                             >
-                                归档
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
                             </a>
                         </li>
                     
@@ -78,7 +86,7 @@
                             <a class=""
                                href="/tags"
                             >
-                                标签
+                                TAGS
                             </a>
                         </li>
                     
@@ -86,7 +94,7 @@
                             <a class=""
                                href="/links"
                             >
-                                友链
+                                LINKS
                             </a>
                         </li>
                     
@@ -94,14 +102,44 @@
                             <a class=""
                                href="/about/index.html"
                             >
-                                关于
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="http://121.89.218.85:8081/"
+                            >
+                                LIVE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="http://121.89.218.85:58913/"
+                            >
+                                TSBOT
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="http://121.89.218.85:3080/"
+                            >
+                                ONEDRIVE
                             </a>
                         </li>
                     
                     
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
                 </ul>
             </div>
             <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
                 <div class="icon-item menu-bar">
                     <div class="menu-bar-middle"></div>
@@ -115,27 +153,47 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/index.html">首页</a>
+                       href="/index.html">HOME</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/archives">归档</a>
+                       href="/archives">ARCHIVES</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/tags">标签</a>
+                       href="/categories">CATEGORIES</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/links">友链</a>
+                       href="/tags">TAGS</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/about/index.html">关于</a>
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about/index.html">ABOUT</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="http://121.89.218.85:8081/">LIVE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="http://121.89.218.85:58913/">TSBOT</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="http://121.89.218.85:3080/">ONEDRIVE</a>
                 </li>
             
         </ul>
@@ -161,6 +219,186 @@
                 
 
                 <h3 class="home-article-title">
+                    <a href="/2021/08/09/PythonHttpAPI/">
+                        Python 调用 HTTP API 接口模板
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        搜索引擎上获取的代码大多鱼龙混杂，因此自己写一个保存以待后用
+1234567891011121314151617181920212223242526272829#!/usr/bin/env python# -*- coding:utf-8 -*-#@...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Aug 09 2021 20:55:53 GMT+0800">2021-08-09</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/08/09/PythonHttpAPI/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/08/06/chinese-copywriting-guidelines/">
+                        中文文案排版指北
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        中文文案排版指北Other languages:
+
+English
+Chinese Traditional
+Chinese Simplified
+
+
+目录
+
+
+空格
+中英文之间需要增加空格
+中文与数字之间需要增加空格
+数字与单位之间无需增加空格
+全角...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Aug 06 2021 18:01:45 GMT+0800">2021-08-06</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/08/06/chinese-copywriting-guidelines/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/08/06/AlibabaCodeFormat/">
+                        阿里巴巴编码规范（Java）
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        编程规约注释注释规范1. 类、类属性、类方法的注释必须使用Javadoc规范，使用/**内容*/格式，不得使用// xxx方式
+2. 所有的抽象方法（包括接口中的方法）必须要用Javadoc注释、除了返回值、参数、异常说明外，还必须指出该方法做什么事...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Aug 06 2021 17:18:32 GMT+0800">2021-08-06</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/08/06/AlibabaCodeFormat/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
+                    <a href="/2021/08/03/TeamSpeak%E5%BF%AB%E9%80%9F%E5%B8%AE%E5%8A%A9/">
+                        TeamSpeak快速帮助
+                    </a>
+                </h3>
+
+                <div class="home-article-content markdown-body">
+                    
+                        TeamSpeak快速帮助：TeamSpeak资源下载
+这里给两个下载地址：
+
+https://wwa.lanzoui.com/ilq7Es5231e TeamSpeak中文绿色版，不需要安装，开箱即用
+https://wwa.lanzoui.com...
+                    
+                </div>
+
+                <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 03 2021 22:27:50 GMT+0800">2021-08-03</span></span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2021/08/03/TeamSpeak%E5%BF%AB%E9%80%9F%E5%B8%AE%E5%8A%A9/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
+</div>
+
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                <h3 class="home-article-title">
                     <a href="/2021/08/03/MaleSoul/">
                         关于男魂符号（♂）
                     </a>
@@ -180,9 +418,21 @@
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 03 2021 18:31:14 GMT+0800">2021-08-03</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%93%B2%E2%99%82%E5%AD%A6/">哲♂学</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <a href="/2021/08/03/MaleSoul/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/08/03/MaleSoul/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -208,9 +458,21 @@
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 03 2021 18:26:20 GMT+0800">2021-08-03</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%93%B2%E2%99%82%E5%AD%A6/">哲♂学</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <a href="/2021/08/03/DeepUnderstandingOfPhilosophy/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/08/03/DeepUnderstandingOfPhilosophy/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -242,9 +504,21 @@
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Tue Aug 03 2021 10:17:51 GMT+0800">2021-08-03</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E4%B8%9C%E7%99%BE%E5%BE%80%E4%BA%8B/">东百往事</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <a href="/2021/08/03/shenyangstreet/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/08/03/shenyangstreet/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -275,9 +549,21 @@
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Aug 02 2021 23:20:42 GMT+0800">2021-08-02</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%93%B2%E2%99%82%E5%AD%A6/">哲♂学</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <a href="/2021/08/02/BananaAvenueEast/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/08/02/BananaAvenueEast/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -288,16 +574,16 @@
 
                 <h3 class="home-article-title">
                     <a href="/2021/08/02/banana/">
-                        香蕉♂君
+                        向世界传达这梦想与自由
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
                         
-
   
 
+  
   
 镜头前，一个男人在舞蹈着。
 他身上并没有多少衣物，一个红色头巾，一个遮住关键部位的短裤。
@@ -305,7 +591,7 @@
 但是仔细看，会觉得这个舞蹈缺少了什么。
 是什么呢？
 他的动作……似乎有些拘束。
-但这也能理解。毕竟，一个男人衣着寸缕，在镜头前……...
+但这也能理解。毕竟，一个男人衣着寸缕，在镜头前...
                     
                 </div>
 
@@ -314,9 +600,21 @@
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Aug 02 2021 20:11:20 GMT+0800">2021-08-02</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%93%B2%E2%99%82%E5%AD%A6/">哲♂学</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <a href="/2021/08/02/banana/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/08/02/banana/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -345,9 +643,21 @@ https://wwa.lanzoui.com/iMYHls5...
         <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Mon Aug 02 2021 14:36:48 GMT+0800">2021-08-02</span></span>
         
         
+            <span class="home-article-tag">
+                <i class="fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
     </div>
 
-    <a href="/2021/08/02/teamspeak3/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/08/02/teamspeak3/">Read more&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -359,7 +669,7 @@ https://wwa.lanzoui.com/iMYHls5...
     
         <a class="prev btn"
            href="/"
-        >上一页</a>
+        >Prev</a>
     
 
     
@@ -382,11 +692,11 @@ https://wwa.lanzoui.com/iMYHls5...
             
               <span>2020</span>&nbsp;-&nbsp;
             
-            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Xrervip</a>
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Fzquantum</a>
         </div>
         
         <div class="theme-info info-item">
-            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
         </div>
         
             <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">本站不欢迎原批</a></div>
@@ -450,6 +760,35 @@ https://wwa.lanzoui.com/iMYHls5...
 
 
     
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
 
 </main>
 
@@ -467,6 +806,10 @@ https://wwa.lanzoui.com/iMYHls5...
 
 <script src="/js/dark-light-toggle.js"></script>
 
+
+
+    
+<script src="/js/local-search.js"></script>
 
 
 

@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="keywords" content="Hexo Theme Keep">
     <meta name="description" content="Hexo Theme Keep">
-    <meta name="author" content="Xrervip">
+    <meta name="author" content="Fzquantum">
     
     <title>
         
             TeamSpeak快速帮助 |
         
-        XRER-ARCHIVES
+        FZQuantum-Archives
     </title>
     
 <link rel="stylesheet" href="/css/style.css">
@@ -22,8 +22,8 @@
 
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
-    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
     KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
   </script>
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -52,7 +52,7 @@
         <div class="left">
             
             <a class="logo-title" href="/">
-                XRER-ARCHIVES
+                FZQuantum-Archives
             </a>
         </div>
 
@@ -64,7 +64,7 @@
                             <a class=""
                                href="/index.html"
                             >
-                                首页
+                                HOME
                             </a>
                         </li>
                     
@@ -72,7 +72,15 @@
                             <a class=""
                                href="/archives"
                             >
-                                归档
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
                             </a>
                         </li>
                     
@@ -80,7 +88,7 @@
                             <a class=""
                                href="/tags"
                             >
-                                标签
+                                TAGS
                             </a>
                         </li>
                     
@@ -88,7 +96,7 @@
                             <a class=""
                                href="/links"
                             >
-                                友链
+                                LINKS
                             </a>
                         </li>
                     
@@ -96,14 +104,44 @@
                             <a class=""
                                href="/about/index.html"
                             >
-                                关于
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="http://121.89.218.85:8081/"
+                            >
+                                LIVE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="http://121.89.218.85:58913/"
+                            >
+                                TSBOT
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="http://121.89.218.85:3080/"
+                            >
+                                ONEDRIVE
                             </a>
                         </li>
                     
                     
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
                 </ul>
             </div>
             <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
                 
                 <div class="icon-item menu-bar">
                     <div class="menu-bar-middle"></div>
@@ -117,27 +155,47 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/index.html">首页</a>
+                       href="/index.html">HOME</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/archives">归档</a>
+                       href="/archives">ARCHIVES</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/tags">标签</a>
+                       href="/categories">CATEGORIES</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/links">友链</a>
+                       href="/tags">TAGS</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/about/index.html">关于</a>
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about/index.html">ABOUT</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="http://121.89.218.85:8081/">LIVE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="http://121.89.218.85:58913/">TSBOT</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="http://121.89.218.85:3080/">ONEDRIVE</a>
                 </li>
             
         </ul>
@@ -169,7 +227,7 @@
                 </div>
                 <div class="info">
                     <div class="author">
-                        <span class="name">Xrervip</span>
+                        <span class="name">Fzquantum</span>
                         
                             <span class="author-label">哲♂学家</span>
                         
@@ -212,17 +270,20 @@
 <li><a class="link"   target="_blank" rel="noopener" href="https://wwa.lanzoui.com/iMYHls52alg" >https://wwa.lanzoui.com/iMYHls52alg<i class="fas fa-external-link-alt"></i></a>安装版，需要走一遍安装流程<br>建议有功夫的话使用安装版  </li>
 <li>俺的Teamspeak地址：IP：<em>快速连接</em><a href="121.89.218.85">121.89.218.85</a><br>或者是域名 <em>记忆</em><a href="ts.xrervip.tk">ts.xrervip.tk</a>  </li>
 </ol>
+<h1 id="快速连接"><a href="#快速连接" class="headerlink" title="快速连接"></a>快速连接</h1><p><a href="ts3server://121.89.218.85">点我快速连接到121.89.218.85</a><br><a class="link"   target="_blank" rel="noopener" href="http://invite.teamspeak.com/121.89.218.85/" >如果没有安装请点击<i class="fas fa-external-link-alt"></i></a></p>
 <h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>下面来说说使用方法，此处会从安装开始说起，以方便新用户进行使用。<br>建议不要使用某国内公司制作的中文翻译版<a href="ts1.cn">ts1.cn</a>，该版本过旧，无法登陆现有的大部分 TeamSpeak 服务器</p>
 <p>第一步，下载 TeamSpeak 此处可以前往 TeamSpeak 官网 teamspeak.com 进行下载，也可以通过转存蓝奏云地址进行下载，解决国内在官网下载速度过慢的问题<br>这里给两个下载地址：</p>
 <ol>
 <li><a class="link"   target="_blank" rel="noopener" href="https://wwa.lanzoui.com/ilq7Es5231e" >https://wwa.lanzoui.com/ilq7Es5231e<i class="fas fa-external-link-alt"></i></a> TeamSpeak中文绿色版，不需要安装，开箱即用</li>
 <li><a class="link"   target="_blank" rel="noopener" href="https://wwa.lanzoui.com/iMYHls52alg" >https://wwa.lanzoui.com/iMYHls52alg<i class="fas fa-external-link-alt"></i></a>安装版，需要走一遍安装流程<br>建议有功夫的话使用安装版<br>ps：安装版可能需要中文语音包<br>下载地址 <a class="link"   target="_blank" rel="noopener" href="https://github.com/jitingcn/TS3-Translation_zh-CN/releases" >https://github.com/jitingcn/TS3-Translation_zh-CN/releases<i class="fas fa-external-link-alt"></i></a></li>
 </ol>
-<h2 id="连接至服务器"><a href="#连接至服务器" class="headerlink" title="连接至服务器"></a>连接至服务器</h2><p>点击主界面上面的 Connection - Connect，在 Server Nickname or Address 位置输入服务器地址（<a href="121.89.218.85">121.89.218.85</a> 或者<a href="ts.xrervip.tk">ts.xrervip.tk</a>）， Nickname 位置输入昵称后，点击 Connect 即可。<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/fpOMy4"><img src="https://z3.ax1x.com/2021/08/02/fpOMy4.jpg" alt="fpOMy4.jpg"></a><br>PS：俺的Teamspeak地址：<a href="121.89.218.85">121.89.218.85</a></p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-设置感应麦（在嘈杂的环境中对队友特别舒适）"><a href="#1-设置感应麦（在嘈杂的环境中对队友特别舒适）" class="headerlink" title="1. 设置感应麦（在嘈杂的环境中对队友特别舒适）"></a>1. 设置感应麦（在嘈杂的环境中对队友特别舒适）</h3><p>点击工具栏中的<strong>工具(Tools)</strong> ，在菜单中打开最下方<strong>设置(Options)</strong> 菜单目录 ，选择第四栏<strong>输入(Capture)</strong> 选项卡。<br>可以在右侧的 配置 中看到 语音感应激活(Capture Voice Activation)选项，模式选择 Volume Gate。</p>
+<h2 id="连接至服务器"><a href="#连接至服务器" class="headerlink" title="连接至服务器"></a>连接至服务器</h2><h3 id="快速连接-1"><a href="#快速连接-1" class="headerlink" title="快速连接"></a>快速连接</h3><p><a href="ts3server://121.89.218.85">点我快速连接到121.89.218.85</a></p>
+<h2 id="手动连接"><a href="#手动连接" class="headerlink" title="手动连接"></a>手动连接</h2><p>点击主界面上面的工具栏中 <strong>连接(Connect)</strong> - <strong>连接</strong>，在 <strong>服务器域名或地址（Server Nickname or Address）</strong> 的位置输入服务器地址（<a href="121.89.218.85">121.89.218.85</a> 或者<a href="ts.xrervip.tk">ts.xrervip.tk</a>），<strong>昵称（ Nickname）</strong> 位置输入昵称后，点击 <strong>连接(Connect)</strong> 即可。<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/fpOMy4"><img src="https://z3.ax1x.com/2021/08/02/fpOMy4.jpg" alt="fpOMy4.jpg"></a><br>PS：俺的Teamspeak地址：<a href="121.89.218.85">121.89.218.85</a></p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="如何设置感应麦？（在嘈杂的环境中对队友特别舒适）"><a href="#如何设置感应麦？（在嘈杂的环境中对队友特别舒适）" class="headerlink" title="如何设置感应麦？（在嘈杂的环境中对队友特别舒适）"></a>如何设置感应麦？（在嘈杂的环境中对队友特别舒适）</h3><p>点击工具栏中的<strong>工具(Tools)</strong> ，在菜单中打开最下方<strong>设置(Options)</strong> 菜单目录 ，选择第四栏<strong>输入(Capture)</strong> 选项卡。<br>可以在右侧的 配置 中看到 语音感应激活(Capture Voice Activation)选项，模式选择 Volume Gate。</p>
 <p>下方的滑杆代表感应灵敏度，您可以通过点击 <strong>开始测试(Begin test)</strong> 用平时的嗓音进行测试。<br>一般情况下，推荐打开下方数字信号处理的<strong>回声抑制(Echo reduction) 回声消除(Echo cancellation)</strong> 以及 <strong>消除背景噪音</strong>，但具体请根据个人情况及设备的不同，自行判断。</p>
 <p><a target="_blank" rel="noopener" href="https://imgtu.com/i/fpOQOJ"><img src="https://z3.ax1x.com/2021/08/02/fpOQOJ.jpg" alt="fpOQOJ.jpg"></a></p>
-<h4 id="感应麦可能出现的问题：话别人只能听到后半句-录入过多杂音"><a href="#感应麦可能出现的问题：话别人只能听到后半句-录入过多杂音" class="headerlink" title="感应麦可能出现的问题：话别人只能听到后半句 / 录入过多杂音"></a>感应麦可能出现的问题：话别人只能听到后半句 / 录入过多杂音</h4><p>一般此情况为灵敏度配置不当导致的。<br>通过调节语音感应激活中提到的滑杆，滑杆越往左越灵敏，不断地测试，找到适合自己的灵敏度即可解决此问题。</p>
+<h3 id="感应麦可能出现的问题？-话别人只能听到后半句-录入过多杂音"><a href="#感应麦可能出现的问题？-话别人只能听到后半句-录入过多杂音" class="headerlink" title="感应麦可能出现的问题？ 话别人只能听到后半句 / 录入过多杂音"></a>感应麦可能出现的问题？ 话别人只能听到后半句 / 录入过多杂音</h3><p>一般此情况为灵敏度配置不当导致的。<br>通过调节语音感应激活中提到的滑杆，滑杆越往左越灵敏，不断地测试，找到适合自己的灵敏度即可解决此问题。</p>
+<p>内容抄袭自<a class="link"   target="_blank" rel="noopener" href="https://ts.wevg.org/why-teamspeak/" >https://ts.wevg.org/why-teamspeak/<i class="fas fa-external-link-alt"></i></a></p>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8067561111332271"
      crossorigin="anonymous"></script>
 <!-- ad1 -->
@@ -252,7 +313,7 @@
                             </span>
                             <span class="title flex-center">
                                 <span class="post-nav-title-item">阿里巴巴编码规范（Java）</span>
-                                <span class="post-nav-item">上一篇</span>
+                                <span class="post-nav-item">Prev posts</span>
                             </span>
                         </a>
                     </div>
@@ -265,7 +326,7 @@
                         >
                             <span class="title flex-center">
                                 <span class="post-nav-title-item">关于男魂符号（♂）</span>
-                                <span class="post-nav-item">下一篇</span>
+                                <span class="post-nav-item">Next posts</span>
                             </span>
                             <span class="right arrow-icon flex-center">
                               <i class="fas fa-chevron-right"></i>
@@ -294,11 +355,11 @@
             
               <span>2020</span>&nbsp;-&nbsp;
             
-            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Xrervip</a>
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Fzquantum</a>
         </div>
         
         <div class="theme-info info-item">
-            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
         </div>
         
             <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">本站不欢迎原批</a></div>
@@ -375,7 +436,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TeamSpeak%E5%BF%AB%E9%80%9F%E5%B8%AE%E5%8A%A9%EF%BC%9ATeamSpeak%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">TeamSpeak快速帮助：TeamSpeak资源下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">连接至服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">2.3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%AE%BE%E7%BD%AE%E6%84%9F%E5%BA%94%E9%BA%A6%EF%BC%88%E5%9C%A8%E5%98%88%E6%9D%82%E7%9A%84%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%AF%B9%E9%98%9F%E5%8F%8B%E7%89%B9%E5%88%AB%E8%88%92%E9%80%82%EF%BC%89"><span class="nav-number">2.3.1.</span> <span class="nav-text">1. 设置感应麦（在嘈杂的环境中对队友特别舒适）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%84%9F%E5%BA%94%E9%BA%A6%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A%E8%AF%9D%E5%88%AB%E4%BA%BA%E5%8F%AA%E8%83%BD%E5%90%AC%E5%88%B0%E5%90%8E%E5%8D%8A%E5%8F%A5-%E5%BD%95%E5%85%A5%E8%BF%87%E5%A4%9A%E6%9D%82%E9%9F%B3"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">感应麦可能出现的问题：话别人只能听到后半句 &#x2F; 录入过多杂音</span></a></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TeamSpeak%E5%BF%AB%E9%80%9F%E5%B8%AE%E5%8A%A9%EF%BC%9ATeamSpeak%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">TeamSpeak快速帮助：TeamSpeak资源下载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E8%BF%9E%E6%8E%A5"><span class="nav-number">2.</span> <span class="nav-text">快速连接</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E8%87%B3%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">连接至服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E8%BF%9E%E6%8E%A5-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">快速连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.3.</span> <span class="nav-text">手动连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">3.4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E6%84%9F%E5%BA%94%E9%BA%A6%EF%BC%9F%EF%BC%88%E5%9C%A8%E5%98%88%E6%9D%82%E7%9A%84%E7%8E%AF%E5%A2%83%E4%B8%AD%E5%AF%B9%E9%98%9F%E5%8F%8B%E7%89%B9%E5%88%AB%E8%88%92%E9%80%82%EF%BC%89"><span class="nav-number">3.4.1.</span> <span class="nav-text">如何设置感应麦？（在嘈杂的环境中对队友特别舒适）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%9F%E5%BA%94%E9%BA%A6%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F-%E8%AF%9D%E5%88%AB%E4%BA%BA%E5%8F%AA%E8%83%BD%E5%90%AC%E5%88%B0%E5%90%8E%E5%8D%8A%E5%8F%A5-%E5%BD%95%E5%85%A5%E8%BF%87%E5%A4%9A%E6%9D%82%E9%9F%B3"><span class="nav-number">3.4.2.</span> <span class="nav-text">感应麦可能出现的问题？ 话别人只能听到后半句 &#x2F; 录入过多杂音</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
@@ -385,6 +446,35 @@
     <img src="">
 </div>
 
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
     
 
@@ -403,6 +493,10 @@
 
 <script src="/js/dark-light-toggle.js"></script>
 
+
+
+    
+<script src="/js/local-search.js"></script>
 
 
 
