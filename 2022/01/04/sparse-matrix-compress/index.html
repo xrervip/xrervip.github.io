@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Fzquantum">
+    
+    <title>
+        
+            稀疏矩阵压缩研究 |
+        
+        FZQuantum-Archives
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/bitbug_favicon_48.ico">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                FZQuantum-Archives
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about/index.html"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="http://120.53.249.36:8081/"
+                            >
+                                LIVE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="http://120.53.249.36:3080/"
+                            >
+                                ONEDRIVE
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about/index.html">ABOUT</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="http://120.53.249.36:8081/">LIVE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="http://120.53.249.36:3080/">ONEDRIVE</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">稀疏矩阵压缩研究</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/%E9%A6%99%E8%95%89%E5%90%9Bhd.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Fzquantum</span>
+                        
+                            <span class="author-label">哲♂学家</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-01-04 17:21:10</span>
+        <span class="mobile">2022-01-04 17:21</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="1-矩阵（稀疏矩阵）压缩存储（3种方式）"><a href="#1-矩阵（稀疏矩阵）压缩存储（3种方式）" class="headerlink" title="1. 矩阵（稀疏矩阵）压缩存储（3种方式）"></a>1. 矩阵（稀疏矩阵）压缩存储（3种方式）</h1><p>数据结构中，提供针对某些特殊矩阵的压缩存储结构。<br>存储矩阵的一般方法是采用二维数组，其优点是可以随机地访问每一个元素，因而能够容易实现矩阵的各种运算。</p>
+<p>对于稀疏矩阵，它通常具有很大的维度，有时甚大到整个矩阵（零元素）占用了绝大部分内存</p>
+<p>采用二维数组的存储方法既浪费大量的存储单元来存放零元素，又要在运算中浪费大量的时间来进行零元素的无效运算。因此必须考虑对稀疏矩阵进行压缩存储（只存储非零元素）。</p>
+<p>这里所说的特殊矩阵，主要分为以下3类：</p>
+<ol>
+<li>含有大量相同数据元素的矩阵，比如<strong>对称矩阵</strong>；<img src="http://data.biancheng.net/uploads/allimg/181216/2-1Q216124303E1.gif" alt="对称矩阵"> 因此可以使用一维数组存储对称矩阵。由于矩阵中沿对角线两侧的数据相等，因此数组中只需存储对角线一侧</li>
+<li>含有大量 0 元素的矩阵，比如<strong>稀疏矩阵、上（下）三角矩阵</strong>；<img src="http://data.biancheng.net/uploads/allimg/181216/2-1Q21612453O28.gif" alt="上（下）三角矩阵"> 上（下）三角矩阵采用对称矩阵的方式存储上（下）三角的数据（元素 0 不用存储）</li>
+<li><strong>稀疏矩阵</strong> 如果矩阵中分布有大量的元素 0，即非 0 元素非常少，这类矩阵称为稀疏矩阵。<br><img src="http://data.biancheng.net/uploads/allimg/181216/2-1Q216124S1131.gif" alt="稀疏矩阵
+"><br>压缩存储稀疏矩阵的一个简单而朴素的方法是：只存储矩阵中的非 0 元素，与前面的存储方法不同，稀疏矩阵非 0 元素的存储需同时存储该元素所在矩阵中的行标和列标。</li>
+</ol>
+<h1 id="2-稀疏矩阵压缩的主要方法"><a href="#2-稀疏矩阵压缩的主要方法" class="headerlink" title="2. 稀疏矩阵压缩的主要方法"></a>2. 稀疏矩阵压缩的主要方法</h1><h2 id="2-1-坐标法-COO"><a href="#2-1-坐标法-COO" class="headerlink" title="2.1 坐标法 COO"></a>2.1 坐标法 COO</h2><p>这种存储格式比较简单易懂，每一个元素需要用一个三元组来表示，分别是（行号，列号，数值），对应上图右边的一列。这种方式简单，但是记录单信息多（行列），每个三元组自己可以定位，因此空间不是最优。</p>
+<ul>
+<li>  采用三元组<code>(row, col, data)</code>(或称为ijv format)的形式来存储矩阵中非零元素的信息</li>
+<li>  三个数组 <code>row</code> 、<code>col</code> 和 <code>data</code> 分别保存非零元素的行下标、列下标与值（一般长度相同）</li>
+<li>  故 <code>coo[row[k]][col[k]] = data[k]</code> ，即矩阵的第 <code>row[k]</code> 行、第 <code>col[k]</code> 列的值为 <code>data[k]</code></li>
+</ul>
+<h3 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h3><ul>
+<li>  主要用来创建矩阵，因为coo_matrix无法对矩阵的元素进行增删改等操作</li>
+<li>  一旦创建之后，除了将之转换成其它格式的矩阵，几乎无法对其做任何操作和矩阵运算</li>
+</ul>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><h3 id="①优点"><a href="#①优点" class="headerlink" title="①优点"></a>①优点</h3><ul>
+<li>  转换成其它存储格式很快捷简便（<code>tobsr()</code>、<code>tocsr()</code>、<code>to_csc()</code>、<code>to_dia()</code>、<code>to_dok()</code>、<code>to_lil()</code>）</li>
+<li>  能与CSR / CSC格式的快速转换</li>
+<li>  允许重复的索引（例如在1行1列处存了值2.0，又在1行1列处存了值3.0，则转换成其它矩阵时就是2.0+3.0=5.0）</li>
+</ul>
+<h3 id="②缺点"><a href="#②缺点" class="headerlink" title="②缺点"></a>②缺点</h3><ul>
+<li>  不支持切片和算术运算操作</li>
+<li>  如果稀疏矩阵<strong>仅包含非0元素的对角线</strong>，则对角存储格式(DIA)可以减少非0元素定位的信息量</li>
+<li>  这种存储格式对有限元素或者有限差分离散化的矩阵尤其有效</li>
+</ul>
+<h2 id="2-2-行压缩格式-Compressed-Sparse-Row-CSR"><a href="#2-2-行压缩格式-Compressed-Sparse-Row-CSR" class="headerlink" title="2.2 行压缩格式 Compressed Sparse Row (CSR)"></a>2.2 行压缩格式 Compressed Sparse Row (CSR)</h2><p><a target="_blank" rel="noopener" href="https://imgtu.com/i/TORGFJ"><img src="https://s4.ax1x.com/2022/01/04/TORGFJ.png" alt="TORGFJ.png"></a><br>这是经常用的一种，我们会经常在一些标准的线性代数库或者数值运算库中看到此方式存储；CSR是比较标准的一种，也需要三类数据来表达：数值，列号，以及行偏移。CSR不是三元组，而是整体的编码方式。数值和列号与COO一致，表示一个元素以及其列号，行偏移表示某一行的第一个元素在values里面的起始偏移位置。</p>
+<p>如上图中，第一行的第一个元素1在values中是第0个, 所以是0偏移，第二行元素第一个元素2是2偏移，第三行第一个元素5是4偏移，第4行第一个元素6是7偏移。在行偏移的最后补上矩阵总的元素个数，本例中一共是9个非零元素。</p>
+<p>主要特征如下：</p>
+<ul>
+<li><p>  csr_matrix是按行对矩阵进行压缩的</p>
+</li>
+<li><p>  通过 <code>indices</code>, <code>indptr</code>，<code>data</code> 来确定矩阵。</p>
+</li>
+<li><p>  <code>data</code> 表示矩阵中的非零数据</p>
+</li>
+<li><p>  对于第 <code>i</code> 行而言，该行中非零元素的列索引为 <code>indices[indptr[i]:indptr[i+1]]</code></p>
+</li>
+<li><p>  可以将 <code>indptr</code> 理解成利用其自身索引 <code>i</code> 来指向第 <code>i</code> 行元素的列索引</p>
+</li>
+<li><p>  根据<code>[indptr[i]:indptr[i+1]]</code>，我就得到了该行中的非零元素个数，如</p>
+</li>
+<li><p>  若 <code>index[i] = 3</code> 且 <code>index[i+1] = 3</code> ，则第 <code>i</code> 行的没有非零元素</p>
+</li>
+<li><p>  若 <code>index[j] = 6</code> 且 <code>index[j+1] = 7</code> ，则第 <code>j</code> 行的非零元素的列索引为 <code>indices[6:7]</code></p>
+</li>
+<li><p>  得到了行索引、列索引，相应的数据存放在： <code>data[indptr[i]:indptr[i+1]]</code></p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/TLoKiD"><img src="https://s4.ax1x.com/2022/01/04/TLoKiD.gif" alt="TLoKiD.gif"></a></p>
+<ul>
+<li><p>  对于矩阵第 <code>0</code> 行，我们需要先得到其非零元素列索引</p>
+</li>
+<li><p>  由 <code>indptr[0] = 0</code> 和 <code>indptr[1] = 2</code> 可知，第 <code>0</code> 行有两个非零元素。</p>
+</li>
+<li><p>  它们的列索引为 <code>indices[0:2] = [0, 2]</code> ，且存放的数据为 <code>data[0] = 8</code> ， <code>data[1] = 2</code></p>
+</li>
+<li><p>  因此矩阵第 <code>0</code> 行的非零元素 <code>csr[0][0] = 8</code> 和 <code>csr[0][2] = 2</code></p>
+</li>
+<li><p>  对于矩阵第 <code>4</code> 行，同样我们需要先计算其非零元素列索引</p>
+</li>
+<li><p>  由 <code>indptr[4] = 3</code> 和 <code>indptr[5] = 6</code> 可知，第 <code>4</code> 行有3个非零元素。</p>
+</li>
+<li><p>  它们的列索引为 <code>indices[3:6] = [2, 3，4]</code> ，且存放的数据为 <code>data[3] = 7</code> ，<code>data[4] = 1</code> ，<code>data[5] = 2</code></p>
+</li>
+<li><p>  因此矩阵第 <code>4</code> 行的非零元素 <code>csr[4][2] = 7</code> ， <code>csr[4][3] = 1</code> 和 <code>csr[4][4] = 2</code></p>
+<h3 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h3></li>
+</ul>
+<h3 id="①优点-1"><a href="#①优点-1" class="headerlink" title="①优点"></a>①优点</h3><ul>
+<li>  高效的稀疏矩阵算术运算</li>
+<li>  高效的行切片</li>
+<li>  快速地矩阵矢量积运算</li>
+</ul>
+<h3 id="②缺点-1"><a href="#②缺点-1" class="headerlink" title="②缺点"></a>②缺点</h3><ul>
+<li>  较慢地列切片操作（可以考虑CSC）</li>
+<li>  转换到稀疏结构代价较高（可以考虑LIL，DOK）</li>
+</ul>
+<h2 id="2-3列压缩格式-Compressed-Sparse-Column-CSC"><a href="#2-3列压缩格式-Compressed-Sparse-Column-CSC" class="headerlink" title="2.3列压缩格式 Compressed Sparse Column (CSC)"></a>2.3列压缩格式 Compressed Sparse Column (CSC)</h2><p>CSC是和CSR相对应的一种方式，即按列压缩的意思。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[1 7 0 0]</span><br><span class="line"> [0 2 8 0]</span><br><span class="line"> [5 0 3 9]</span><br><span class="line"> [0 6 0 4]]</span><br></pre></td></tr></table></figure>
+<p>以上图中矩阵为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Column Offsets：[0 2 5 7 9]</span><br><span class="line">Row Index：[0 2 0 1 3 1 2 2 3]</span><br><span class="line">Values： [1 5 7 2 6 8 3 9 4]</span><br></pre></td></tr></table></figure>
+<p>Values中的元素要按列写, 跟COO和CSR不同, 指定了Values的元素顺序之后就可以写Row Index, 然后根据每一列第一个元素在Values中的位置确定偏移量Column Offsets. 如第一列第一个元素1是0偏移, 第二列第一个元素7是2偏移, 第三列第一个元素8是5偏移, 第四列第一个元素9是7偏移, 共9个元素.</p>
+<p>主要特征如下：</p>
+<ul>
+<li><p>  csc_matrix是按列对矩阵进行压缩的</p>
+</li>
+<li><p>  通过 <code>indices</code>, <code>indptr</code>，<code>data</code> 来确定矩阵，可以对比CSR</p>
+</li>
+<li><p>  <code>data</code> 表示矩阵中的非零数据</p>
+</li>
+<li><p>  对于第 <code>i</code> 列而言，该行中非零元素的行索引为<code>indices[indptr[i]:indptr[i+1]]</code></p>
+</li>
+<li><p>  可以将 <code>indptr</code> 理解成利用其自身索引 <code>i</code> 来指向第 <code>i</code> 列元素的列索引</p>
+</li>
+<li><p>  根据<code>[indptr[i]:indptr[i+1]]</code>，我就得到了该行中的非零元素个数，如</p>
+</li>
+<li><p>  若 <code>index[i] = 1</code> 且 <code>index[i+1] = 1</code> ，则第 <code>i</code> 列的没有非零元素</p>
+</li>
+<li><p>  若 <code>index[j] = 4</code> 且 <code>index[j+1] = 6</code> ，则第 <code>j</code>列的非零元素的行索引为 <code>indices[4:6]</code></p>
+</li>
+<li><p>  得到了列索引、行索引，相应的数据存放在： <code>data[indptr[i]:indptr[i+1]]</code></p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/TLonIO"><img src="https://s4.ax1x.com/2022/01/04/TLonIO.gif" alt="TLonIO.gif"></a><br>对于矩阵第 <code>0</code> 列，我们需要先得到其非零元素行索引</p>
+<ul>
+<li>  由 <code>indptr[0] = 0</code> 和 <code>indptr[1] = 1</code> 可知，第 <code>0</code>列行有1个非零元素。</li>
+<li>  它们的行索引为 <code>indices[0:1] = [0]</code> ，且存放的数据为 <code>data[0] = 8</code></li>
+<li>  因此矩阵第 <code>0</code> 行的非零元素 <code>csc[0][0] = 8</code></li>
+</ul>
+<p>对于矩阵第 <code>3</code> 列，同样我们需要先计算其非零元素行索引</p>
+<ul>
+<li>  由 <code>indptr[3] = 4</code> 和 <code>indptr[4] = 6</code> 可知，第 <code>4</code> 行有2个非零元素。</li>
+<li>  它们的行索引为 <code>indices[4:6] = [4, 6]</code> ，且存放的数据为 <code>data[4] = 1</code> ，<code>data[5] = 9</code></li>
+<li>  因此矩阵第 <code>i</code> 行的非零元素 <code>csr[4][3] = 1</code> ， <code>csr[6][3] = 9</code></li>
+</ul>
+<h2 id="2-4-Block-Sparse-Row-Matrix-分块压缩稀疏行格式-BSR"><a href="#2-4-Block-Sparse-Row-Matrix-分块压缩稀疏行格式-BSR" class="headerlink" title="2.4 Block Sparse Row Matrix (分块压缩稀疏行格式)(BSR)"></a>2.4 Block Sparse Row Matrix (分块压缩稀疏行格式)(BSR)</h2><ul>
+<li><p>  基于行的块压缩，与csr类似，都是通过<code>data</code>，<code>indices</code>，<code>indptr</code>来确定矩阵</p>
+</li>
+<li><p>与csr相比，只是data中的元数据由0维的数变为了一个矩阵（块），其余完全相同</p>
+<ul>
+<li><p>  块大小 <code>blocksize</code></p>
+</li>
+<li><p>  块大小 <code>(R, C)</code> 必须均匀划分矩阵 <code>(M, N)</code> 的形状。</p>
+</li>
+<li><p>  R和C必须满足关系：<code>M % R = 0</code> 和 <code>N % C = 0</code></p>
+</li>
+<li><p>  适用场景及优点参考csr</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="参考（抄袭）"><a href="#参考（抄袭）" class="headerlink" title="参考（抄袭）"></a>参考（抄袭）</h1><p><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/da3edd2b46e0" >稀疏矩阵及其压缩格式
+<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/188700729" >Sparse稀疏矩阵主要存储格式总结
+<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/01/10/my-game-of-the-year/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">个人年度游戏评价总结</span>
+                                <span class="post-nav-item">Prev posts</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/10/28/Flying-on-top-of-the-free-world/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">飞行在自由世界之巅——理所当然是GTA4</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Fzquantum</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">本站不欢迎原批</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E7%9F%A9%E9%98%B5%EF%BC%88%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%EF%BC%89%E5%8E%8B%E7%BC%A9%E5%AD%98%E5%82%A8%EF%BC%883%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">1. 矩阵（稀疏矩阵）压缩存储（3种方式）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%A8%80%E7%96%8F%E7%9F%A9%E9%98%B5%E5%8E%8B%E7%BC%A9%E7%9A%84%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2. 稀疏矩阵压缩的主要方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%9D%90%E6%A0%87%E6%B3%95-COO"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 坐标法 COO</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.1.1.</span> <span class="nav-text">适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.1.2.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0%E4%BC%98%E7%82%B9"><span class="nav-number">2.1.3.</span> <span class="nav-text">①优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A1%E7%BC%BA%E7%82%B9"><span class="nav-number">2.1.4.</span> <span class="nav-text">②缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%A1%8C%E5%8E%8B%E7%BC%A9%E6%A0%BC%E5%BC%8F-Compressed-Sparse-Row-CSR"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 行压缩格式 Compressed Sparse Row (CSR)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A0%E4%BC%98%E7%82%B9-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">①优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%91%A1%E7%BC%BA%E7%82%B9-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">②缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3%E5%88%97%E5%8E%8B%E7%BC%A9%E6%A0%BC%E5%BC%8F-Compressed-Sparse-Column-CSC"><span class="nav-number">2.3.</span> <span class="nav-text">2.3列压缩格式 Compressed Sparse Column (CSC)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-Block-Sparse-Row-Matrix-%E5%88%86%E5%9D%97%E5%8E%8B%E7%BC%A9%E7%A8%80%E7%96%8F%E8%A1%8C%E6%A0%BC%E5%BC%8F-BSR"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Block Sparse Row Matrix (分块压缩稀疏行格式)(BSR)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%EF%BC%88%E6%8A%84%E8%A2%AD%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">参考（抄袭）</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>

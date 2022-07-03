@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Fzquantum">
+    
+    <title>
+        
+            红米2 安装 postmarketOS(基于 Alpine Linux)及后续玩法 |
+        
+        FZQuantum-Archives
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/bitbug_favicon_48.ico">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"121.89.218.85","root":"/","language":"zh-cn","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/香蕉君hd.jpg","favicon":"/images/bitbug_favicon_48.ico","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"We choose to go to the moon in this decade and do the other things, not because they are easy, but because they are hard."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.3"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                FZQuantum-Archives
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/index.html"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                LINKS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about/index.html"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="http://120.53.249.36:8081/"
+                            >
+                                LIVE
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               target="_blank" rel="noopener" href="http://120.53.249.36:3080/"
+                            >
+                                ONEDRIVE
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/index.html">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">LINKS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about/index.html">ABOUT</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="http://120.53.249.36:8081/">LIVE</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       target="_blank" rel="noopener" href="http://120.53.249.36:3080/">ONEDRIVE</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">红米2 安装 postmarketOS(基于 Alpine Linux)及后续玩法</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/%E9%A6%99%E8%95%89%E5%90%9Bhd.jpg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Fzquantum</span>
+                        
+                            <span class="author-label">哲♂学家</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-07-03 15:23:45</span>
+        <span class="mobile">2022-07-03 15:23</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>红米2增强版拥有2G RAM和 16G ROM 和晓龙410处理器，作为手机早已过时，但是作为一台ARM服务器则绰绰有余。<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/j87E0f"><img src="https://s1.ax1x.com/2022/07/03/j87E0f.png" alt="j87E0f.png"></a></p>
+<h1 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h1><h2 id="1-进入fastboot模式"><a href="#1-进入fastboot模式" class="headerlink" title="1.进入fastboot模式"></a>1.进入fastboot模式</h2><p>关机情况下，电源键+音量减进入fastboot模式，因为红米2 发行的年代尚且不流行BL锁，所以无需考虑解锁问题。</p>
+<h2 id="2-刷入postmarketOS系统"><a href="#2-刷入postmarketOS系统" class="headerlink" title="2. 刷入postmarketOS系统"></a>2. 刷入postmarketOS系统</h2><h3 id="2-1-检查是否刷入了最新固件"><a href="#2-1-检查是否刷入了最新固件" class="headerlink" title="2.1 检查是否刷入了最新固件"></a>2.1 检查是否刷入了最新固件</h3><ul>
+<li>使用了安卓版本为5以上的MIUI<strong>可以跳过此步骤</strong></li>
+<li>使用了安卓版本为4的的MIUI请更新固件,(不过更简单的方式是线刷一个安卓5的MIUI)<a class="link"   target="_blank" rel="noopener" href="https://xiaomirom.com/download/redmi-2-redmi-2-pro-wt86047-stable-V9.2.3.0.LHJCNEK/#china-fastboot" >下载红米 2/2A (wt86047) 稳定版刷机包 MIUI9<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+<p>固件下载地址：<a class="link"   target="_blank" rel="noopener" href="https://www.androidfilehost.com/?w=files&flid=303434" >https://www.androidfilehost.com/?w=files&amp;flid=303434<i class="fas fa-external-link-alt"></i></a></p>
+<p>红米2有增强&amp;标配区分，小米给红米2挺多个设备名</p>
+<p>标配(官方4.4) 2014811、2014812…(太多不列出来了，一般201481x对于刷第三方来说没特殊区分)</p>
+<p>增强(官方5.1) wt86047(移动)、wt88047(联通&amp;电信)</p>
+<p>对于标准版 下载连接中对应的wt88047的文件，<br>增强版下载wt86047</p>
+<p>不知道的话，打开设置，导航到“手机信息”，并记下“型号”标题下方的型号</p>
+<ul>
+<li> 2014811, 2014812, 2014817 2014818, 2014819,  2014821 ：wt88047.</li>
+<li> 2014813,  2014112 ： wt86047.</li>
+</ul>
+<p>下载固件文件后，在miui里通过adb sideload 安装</p>
+<p>在设备中，选择“高级”，“ADB Sideload”，然后滑动开始sideload<br>在电脑命令行输入如下指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb sideload firmware.zip</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-安装lk2nd作为2nd-bootloader"><a href="#2-2-安装lk2nd作为2nd-bootloader" class="headerlink" title="2.2 安装lk2nd作为2nd bootloader"></a>2.2 安装lk2nd作为2nd bootloader</h2><p>虽然小米已经给我们提供了一个默认的bootloader，但是还需要安装自定义的bootloader  来给运行linux环境提供更多硬件支持，因此需要安装lk2nd</p>
+<p>Github项目地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/msm8916-mainline/lk2nd#readme" >lk2nd<i class="fas fa-external-link-alt"></i></a>，请在github的release页面里下载<code>lk2nd-msm8916.img</code> 文件</p>
+<p>建议安装<strong>最新版</strong>lk2nd，因为0.9版本只开放了<strong>单CPU</strong>，而0.11版之后才能开启<strong>全部四核心</strong>。<br>刷入lk2nd指令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fastboot flash boot lk2nd-msm8916.img</span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/j873n0"><img src="https://s1.ax1x.com/2022/07/03/j873n0.png" alt="j873n0.png"></a><br>没问题的话，重启后手机会显示如下的画面：<br>lk2nd的主界面<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/j8I3nK"><img src="https://s1.ax1x.com/2022/07/03/j8I3nK.png" alt="j8I3nK.png"></a></p>
+<h2 id="2-3-刷入-postmarketOS"><a href="#2-3-刷入-postmarketOS" class="headerlink" title="2.3 刷入 postmarketOS"></a>2.3 刷入 postmarketOS</h2><p>固件下载地址：<a class="link"   target="_blank" rel="noopener" href="https://images.postmarketos.org/bpo/v22.06/xiaomi-wt88047/" >https://images.postmarketos.org/bpo/v22.06/xiaomi-wt88047/<i class="fas fa-external-link-alt"></i></a></p>
+<p>这里有三个ROM 随便选一个下载即可，反正最后也使用终端和手机进行交互，GUI不是很重要。</p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/j8y13D"><img src="https://s1.ax1x.com/2022/07/03/j8y13D.png" alt="j8y13D.png"></a></p>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/j86Fat"><img src="https://s1.ax1x.com/2022/07/03/j86Fat.png" alt="j86Fat.png"></a></p>
+<p>三种UI如下图所示：<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/j8RDne"><img src="https://s1.ax1x.com/2022/07/03/j8RDne.png" alt="j8RDne.png"></a></p>
+<p>重启后手机显示lk2nd界面，重新连接到电脑的fastboot，在电脑的命令行中执行如下的fastboot指令刷入ROM</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fastboot flash boot phosh-18-xiaomi-wt88047-boot.img</span><br><span class="line">fastboot flash userdata phosh-18-xiaomi-wt88047.img</span><br><span class="line">fastboot erase system</span><br><span class="line">fastboot reboot</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/j8sQyj"><img src="https://s1.ax1x.com/2022/07/03/j8sQyj.png" alt="j8sQyj.png"></a><br><a target="_blank" rel="noopener" href="https://imgtu.com/i/j8sYkV"><img src="https://s1.ax1x.com/2022/07/03/j8sYkV.png" alt="j8sYkV.png"></a></p>
+<p>PS1:lk2nd 0.10.0 版本之后，不需要再刷入传统的<code>*-boot.img</code>文件，所以可以考虑跳过刷入该文件。</p>
+<p>刷机完成后，重启手机，进入系统！</p>
+<h1 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><h2 id="1-解锁手机进入图形界面"><a href="#1-解锁手机进入图形界面" class="headerlink" title="1.解锁手机进入图形界面"></a>1.解锁手机进入图形界面</h2><p>postmarketOS提供的默认用户名：<code>user</code> 密码 <code>147147</code> PIN <code>147147</code>，使用该密码解锁手机即可进入系统</p>
+<h2 id="2-开启SSH-Server"><a href="#2-开启SSH-Server" class="headerlink" title="2.开启SSH Server"></a>2.开启SSH Server</h2><p>postmarketOS 默认不开启sshd，因此我们需要手动开启，在手机上的终端机软件中输入如下的指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service sshd start #开启SSH Server 服务</span><br><span class="line">sudo rc-update add sshd # 开机启动SSHD 服务</span><br></pre></td></tr></table></figure>
+
+<p>再说一遍sudo密码 <code>147147</code> </p>
+<p>开启后手机连接到局域网就可以ssh连接到终端了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@IP地址</span><br></pre></td></tr></table></figure>
+<p>有需要的话可以编辑 sshd_config 文件，postmarketOS 没有预置nano vim等编辑器，所以使用vi编辑</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/j86yRO"><img src="https://s1.ax1x.com/2022/07/03/j86yRO.png" alt="j86yRO.png"></a></p>
+<h2 id="3-包管理器apk"><a href="#3-包管理器apk" class="headerlink" title="3. 包管理器apk"></a>3. 包管理器apk</h2><p> postmarketOS使用apk作为包管理</p>
+<p> 换源前首先看一下PostmarketOS的Alpine Linux版本（<code>cat /etc/alpine-release</code>），目前的PostmarkOS的内核版本应该是3.16：<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/j8gSHA"><img src="https://s1.ax1x.com/2022/07/03/j8gSHA.png" alt="j8gSHA.png"></a></p>
+<p>然后编辑源配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/apk/repositories</span><br></pre></td></tr></table></figure>
+<p>增加源地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://mirrors.aliyun.com/alpine/v3.16/main</span><br><span class="line">http://mirrors.aliyun.com/alpine/v3.16/community</span><br></pre></td></tr></table></figure>
+<p>替换源地址后，更新一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apk update</span><br><span class="line">sudo apk upgrade -a</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-安装Bash并设为默认终端"><a href="#4-安装Bash并设为默认终端" class="headerlink" title="4.安装Bash并设为默认终端"></a>4.安装Bash并设为默认终端</h2><p>PostmarkOS默认的Bash为ash，为了更好的使用选择更熟悉的Bash作为默认终端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apk add bash #安装bash</span><br><span class="line">sudo vi /etc/passwd #修改默认配置</span><br></pre></td></tr></table></figure>
+<p>以root和user账户为例修改其默认终端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:/root:/bin/ash</span><br><span class="line">↓</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line"></span><br><span class="line">user:x:10000:10000:Linux User,,,:/home/user:/bin/ash</span><br><span class="line">↓</span><br><span class="line">user:x:10000:10000:Linux User,,,:/home/user:/bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>还有一种方式就是直接用<code>chsh</code>指令<br>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-安装Nano作为编辑器"><a href="#5-安装Nano作为编辑器" class="headerlink" title="5. 安装Nano作为编辑器"></a>5. 安装Nano作为编辑器</h2><p>相比于vi，nano更适合新手使用,用下面的指令可以一键安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apk add nano </span><br></pre></td></tr></table></figure>
+<h2 id="6-安装docker"><a href="#6-安装docker" class="headerlink" title="6.安装docker"></a>6.安装docker</h2><p>给旧手机安装linux，主要目的就是利用docker来运行各种容器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apk add docker #安装docker</span><br><span class="line">sudo service docker start #启动docker服务</span><br><span class="line">sudo rc-update add docker default #设置docker为自启动</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>根据网上的教程， postmarketOS中的docker可能会因为防火墙的原因导致docker的端口无法通过外部访问。</p>
+<p>正确解决这个问题的手段是通过配置防火墙规则允许docker通信,但是省事的方法是鉴于手机服务器的用途，直接停用防火墙。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service nftables stop</span><br><span class="line">sudo rc-update del nftables</span><br></pre></td></tr></table></figure>
+<p>然后安装可视化图形工具Portainer看看是否能正常使用,同时作为日常管理容器的工具，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker pull portainer/portainer </span><br><span class="line">docker run -d -p 9000:9000 --restart=always --name portainer -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>初始化之后就可以正常使用了<br><a target="_blank" rel="noopener" href="https://imgtu.com/i/j82zFI"><img src="https://s1.ax1x.com/2022/07/03/j82zFI.png" alt="j82zFI.png"></a></p>
+<h2 id="开启定时计划运行服务-cron"><a href="#开启定时计划运行服务-cron" class="headerlink" title="开启定时计划运行服务 cron"></a>开启定时计划运行服务 cron</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rc-update add crond default</span><br></pre></td></tr></table></figure>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><h2 id="1-停用GUI（可选）"><a href="#1-停用GUI（可选）" class="headerlink" title="1. 停用GUI（可选）"></a>1. 停用GUI（可选）</h2><p>停用GUI可以节省大量内存，用更多的资源来运行我们的容器等服务。</p>
+<p>根据官网wiki上的介绍<a class="link"   target="_blank" rel="noopener" href="https://wiki.postmarketos.org/wiki/Phosh" >https://wiki.postmarketos.org/wiki/Phosh#Starting_Phosh<i class="fas fa-external-link-alt"></i></a><br>对于我们之前安装的 phosh 镜像，其图形界面的维持是靠phosh 这个服务完成的，因此停用GUI只需要禁用该服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rc-update del tinydm</span><br></pre></td></tr></table></figure>
+<p>然后<code>reboot</code>重启即可，大约可以节约出500MB以上的内存空间</p>
+<p>这样开机就不会进入图形界面</p>
+<p>需要恢复只需要运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rc-update add tinydm default</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/02/13/AmongUs20210630/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">AmongUs私服游玩指南</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Fzquantum</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
+        </div>
+        
+            <div class="icp-info info-item"><a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn">本站不欢迎原批</a></div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%B7%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">刷机</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%BF%9B%E5%85%A5fastboot%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">1.进入fastboot模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%88%B7%E5%85%A5postmarketOS%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.</span> <span class="nav-text">2. 刷入postmarketOS系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%88%B7%E5%85%A5%E4%BA%86%E6%9C%80%E6%96%B0%E5%9B%BA%E4%BB%B6"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 检查是否刷入了最新固件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%AE%89%E8%A3%85lk2nd%E4%BD%9C%E4%B8%BA2nd-bootloader"><span class="nav-number">1.3.</span> <span class="nav-text">2.2 安装lk2nd作为2nd bootloader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E5%88%B7%E5%85%A5-postmarketOS"><span class="nav-number">1.4.</span> <span class="nav-text">2.3 刷入 postmarketOS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">安装软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%A7%A3%E9%94%81%E6%89%8B%E6%9C%BA%E8%BF%9B%E5%85%A5%E5%9B%BE%E5%BD%A2%E7%95%8C%E9%9D%A2"><span class="nav-number">2.1.</span> <span class="nav-text">1.解锁手机进入图形界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BC%80%E5%90%AFSSH-Server"><span class="nav-number">2.2.</span> <span class="nav-text">2.开启SSH Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8apk"><span class="nav-number">2.3.</span> <span class="nav-text">3. 包管理器apk</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AE%89%E8%A3%85Bash%E5%B9%B6%E8%AE%BE%E4%B8%BA%E9%BB%98%E8%AE%A4%E7%BB%88%E7%AB%AF"><span class="nav-number">2.4.</span> <span class="nav-text">4.安装Bash并设为默认终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%AE%89%E8%A3%85Nano%E4%BD%9C%E4%B8%BA%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">2.5.</span> <span class="nav-text">5. 安装Nano作为编辑器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%AE%89%E8%A3%85docker"><span class="nav-number">2.6.</span> <span class="nav-text">6.安装docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E5%AE%9A%E6%97%B6%E8%AE%A1%E5%88%92%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1-cron"><span class="nav-number">2.7.</span> <span class="nav-text">开启定时计划运行服务 cron</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%81%9C%E7%94%A8GUI%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">1. 停用GUI（可选）</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+
+</body>
+</html>
